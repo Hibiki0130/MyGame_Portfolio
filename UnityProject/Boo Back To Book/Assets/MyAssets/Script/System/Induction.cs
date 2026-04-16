@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class Induction : MonoBehaviour
+{
+    //[SerializeField] private TextMeshPro debugLog;
+
+    private GameObject player;
+    private bool sent;
+    public bool approached {  get; private set; }
+    // Start is called before the first frame update
+    void Start()
+    {
+        approached = false;
+        sent = false;
+
+        player = GameObject.FindWithTag("MainCamera");
+
+        if (player == null)
+        {
+            Debug.Log("ãÛÇæÇÊ");
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (approached)
+        {
+            if (sent)
+            {
+                //ãﬂÇ√Ç¢ÇΩèÓïÒÇëóÇ¡ÇΩÇÁÇ®ñå‰ñ∆
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            CheckPlayer();
+        }
+    }
+
+    //1.0fà»â∫ÇÃãóó£Ç≈ãﬂÇ√Ç¢ÇΩîªíË
+    private float clearDistance = 1.0f;
+    private void CheckPlayer()
+    {
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+
+        //è\ï™ãﬂÇ√Ç¢ÇΩÇÁ
+        if (distance < clearDistance)
+        {
+            approached = true;
+        }
+    }
+
+    public void SetSentBoolTrue()
+    {
+        sent = true;
+    }
+}
